@@ -1,0 +1,3 @@
+export function transformData(data) {
+    // Logic for data transformation...
+  }
