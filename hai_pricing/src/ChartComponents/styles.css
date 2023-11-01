@@ -35,8 +35,8 @@ body, html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 25%;  /* each section takes up a quarter of the width */
-  padding: 20px;
+  width: 70%;  /* each section takes up a quarter of the width */
+  padding: 60px;
 }
 
 .price-display {
