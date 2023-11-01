@@ -2,6 +2,7 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';  // Assuming you're using line charts
 import './styles.css';
 import Chart from 'chart.js/auto';
+import {Button, Slider, Typography} from '@mui/material';
 
 
 function ChartComponent(props) {
@@ -75,19 +76,21 @@ function ChartComponent(props) {
 function PriceControl({ product, price }) {
   return (
     <div className="price-control">
-      <div className="price-display">
+      <Typography variant="h6" component="h2" className="price-display">
         {product} Price: ${price}
-      </div>
-      <input type="range" min="100" max="1000" value={price} />
-      <button>Set Prices</button>
+      </Typography>
+      <Slider defaultValue={500} aria-label="Default" valueLabelDisplay="auto" step = {10} min={0} max={1000}/>
+      <Button variant="contained">Set Prices</Button>
     </div>
   );
 }
 function HintSection() {
   return (
     <div className="hint-section">
-      <button>Hint</button>
-      <p>You have the option to click on Hint for AI generated advice</p>
+      <Typography variant="subtitle1" component="h2">
+        You have the option to click on Hint for AI generated advice
+      </Typography>
+      <Button variant="contained">Hint</Button>
     </div>
   );
 }
@@ -96,11 +99,15 @@ function SignalsSection() {
     <div className="signals-section">
       <div>
         <span className="down-arrow">⬇️</span>
-        <p>The demand for Product 1 will be lower.</p>
+        <Typography variant="subtitle1" component="h2">
+          The demand for Product 1 will be lower.
+        </Typography>
       </div>
       <div>
         <span className="up-arrow">⬆️</span>
-        <p>The demand for Product 2 will be higher.</p>
+        <Typography variant="subtitle1" component="h2">
+          The demand for Product 2 will be higher.
+        </Typography>
       </div>
     </div>
   );
