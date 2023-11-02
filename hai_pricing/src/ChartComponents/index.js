@@ -3,9 +3,21 @@ import { Line } from 'react-chartjs-2';  // Assuming you're using line charts
 import './styles.css';
 import Chart from 'chart.js/auto';
 import {Button, Slider, Typography} from '@mui/material';
+import {pushPrices, pushDemands, pushProfits} from 'hai_pricing/src/firebaseDB'
 
+// 5 State Variables
+// Round Specific Values: p1Price, p2oPrice, p1Demand, p2Demand, Profit
+
+// State variable for sessionID
+
+function handleSetPrice() {
+  //pushPrices(sessionID, p1Price, p2Price)
+  //pushDemands(sessionID, p1Demand, p2Demand)
+  //pushProfits(sessionID, p2Demand, p2Demand)
+}
 
 function ChartComponent(props) {
+    
     const pricesData = {
         labels: ['Y1 Q1', 'Y1 Q2', 'Y1 Q3', 'Y1 Q4', 'Y1 Q5', 'Y1 Q6', 'Y1 Q7'],
         datasets: [

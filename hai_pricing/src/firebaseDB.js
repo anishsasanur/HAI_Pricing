@@ -38,9 +38,25 @@ export const pushSignals = async (sessionID, s1, s2) => {
     }, { merge: true });
 }
 
+export const pushDemands = async (sessionID, d1, d2) => {
+    const docRef = doc(collection(firestore, 'Users'), sessionID);
+    await docRef.set({
+        p1Demands: app.firestore.FieldValue.arrayUnion(d1),
+        p2Demands: app.firestore.FieldValue.arrayUnion(d2),
+    }, { merge: true });
+}
+
 export const pushHints = async (sessionID, hint) => {
     const docRef = doc(collection(firestore, 'Users'), sessionID);
     await docRef.set({
         Hints: app.firestore.FieldValue.arrayUnion(hint),
     }, { merge: true });
 }
+
+export const pushProfits = async (sessionID, profit) => {
+    const docRef = doc(collection(firestore, 'Users'), sessionID);
+    await docRef.set({
+        Profits: app.firestore.FieldValue.arrayUnion(profit),
+    }, { merge: true });
+}
+
