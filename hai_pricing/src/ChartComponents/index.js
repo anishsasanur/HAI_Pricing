@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Line } from 'react-chartjs-2';  // Assuming you're using line charts
 import './styles.css';
 import Chart from 'chart.js/auto';
 import {Button, Slider, Typography} from '@mui/material';
-import {pushPrices, pushDemands, pushProfits} from 'hai_pricing/src/firebaseDB'
+import {pushPrices, pushDemands, pushProfits} from '../firebaseDB.js'
+
 
 // 5 State Variables
 // Round Specific Values: p1Price, p2oPrice, p1Demand, p2Demand, Profit
@@ -16,26 +17,9 @@ function handleSetPrice() {
   //pushProfits(sessionID, p2Demand, p2Demand)
 }
 
-function ChartComponent(props) {
+function ChartComponent({ pricesData, profitData}) {
     
-    const pricesData = {
-        labels: ['Y1 Q1', 'Y1 Q2', 'Y1 Q3', 'Y1 Q4', 'Y1 Q5', 'Y1 Q6', 'Y1 Q7'],
-        datasets: [
-          {
-            label: 'P1',
-            data: [100, 300, 400, 600, 750, 800, 850], // example data
-            borderColor: 'blue',
-            fill: false
-          },
-          {
-            label: 'P2',
-            data: [150, 350, 450, 650, 700, 750, 900], // example data
-            borderColor: 'purple',
-            fill: false
-          }
-          // Add more datasets as needed
-        ]
-      };
+
       const options = {
         responsive: true,
         scales: {
@@ -44,15 +28,7 @@ function ChartComponent(props) {
           }
         }
       };
-      const profitData = {
-        labels: ['Y1 Q1', 'Y1 Q2', 'Y1 Q3', 'Y1 Q4', 'Y1 Q5', 'Y1 Q6', 'Y1 Q7'],
-        datasets: [{
-            label: 'Profit',
-            data: [1500000, 2000000, 2500000, 2700000, 3000000, 3200000, 3500000],
-            borderColor: 'teal',
-            fill: false
-        }]
-    };
+
     
     const demandData = {
         labels: ['Y1 Q1', 'Y1 Q2', 'Y1 Q3', 'Y1 Q4', 'Y1 Q5', 'Y1 Q6', 'Y1 Q7'],
@@ -85,14 +61,39 @@ function ChartComponent(props) {
     </div>
   );
 }
-function PriceControl({ product, price }) {
-  return (
+function PriceControl({ handleSetPrice }) {
+  const [sliderValueP1, setSliderValueP1] = useState(500);
+  const [sliderValueP2, setSliderValueP2] = useState(500);
+  
+  function updatePrices() {
+    handleSetPrice(sliderValueP1, sliderValueP2);
+}
+
+    return (
     <div className="price-control">
       <Typography variant="h6" component="h2" className="price-display">
-        {product} Price: ${price}
+        2 Price: $100
       </Typography>
-      <Slider defaultValue={500} aria-label="Default" valueLabelDisplay="auto" step = {10} min={0} max={1000}/>
-      <Button variant="contained">Set Prices</Button>
+        <Slider
+    value={sliderValueP1}
+    onChange={(event, newValue) => setSliderValueP1(newValue)}
+    aria-label="P1 Price"
+    valueLabelDisplay="auto"
+    step={10}
+    min={0}
+    max={1000}
+  />
+
+  <Slider
+    value={sliderValueP2}
+    onChange={(event, newValue) => setSliderValueP2(newValue)}
+    aria-label="P2 Price"
+    valueLabelDisplay="auto"
+    step={10}
+    min={0}
+    max={1000}
+  />
+    <Button variant="contained" onClick={updatePrices}>Set Prices</Button>
     </div>
   );
 }
