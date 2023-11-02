@@ -116,8 +116,8 @@ const Dashboard = ({sessionID}) => {
         ]
     }));
     pushPrices(sessionID, newP1Price, newP2Price);
-    pushProfits(sessionID, newProfitData);
-    pushDemands(dummyDemandValueP2, dummyDemandValueP2)
+    //pushProfits(sessionID, newProfitData);
+    pushDemands(sessionID, dummyDemandValueP2, dummyDemandValueP2)
 
   }
 

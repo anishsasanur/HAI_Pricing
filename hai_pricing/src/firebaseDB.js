@@ -1,6 +1,6 @@
 
 import {app, firestore} from './firebaseConfig';
-import { collection, doc, setDoc, getDocs, addDoc } from "firebase/firestore";
+import { collection, doc, setDoc, getDocs, addDoc, arrayUnion } from "firebase/firestore";
 
 export const createUser = async (sessionID, fullName) => {
     const data = {
@@ -24,39 +24,39 @@ export const createUser = async (sessionID, fullName) => {
 
 export const pushPrices = async (sessionID, p1, p2) => {
     const docRef = doc(collection(firestore, 'Users'), sessionID);
-    await docRef.set({
-        p1Prices: app.firestore.FieldValue.arrayUnion(p1),
-        p2Prices: app.firestore.FieldValue.arrayUnion(p2),
+    await setDoc(docRef, {
+        p1Prices: arrayUnion(p1),
+        p2Prices: arrayUnion(p2),
     }, { merge: true });
 }
 
 export const pushSignals = async (sessionID, s1, s2) => {
     const docRef = doc(collection(firestore, 'Users'), sessionID);
-    await docRef.set({
-        p1Signals: app.firestore.FieldValue.arrayUnion(s1),
-        p2Signals: app.firestore.FieldValue.arrayUnion(s2),
+    await setDoc(docRef, {
+        p1Signals: arrayUnion(s1),
+        p2Signals: arrayUnion(s2),
     }, { merge: true });
 }
 
 export const pushDemands = async (sessionID, d1, d2) => {
     const docRef = doc(collection(firestore, 'Users'), sessionID);
-    await docRef.set({
-        p1Demands: app.firestore.FieldValue.arrayUnion(d1),
-        p2Demands: app.firestore.FieldValue.arrayUnion(d2),
+    await setDoc(docRef, {
+        p1Demands: arrayUnion(d1),
+        p2Demands: arrayUnion(d2),
     }, { merge: true });
 }
 
 export const pushHints = async (sessionID, hint) => {
     const docRef = doc(collection(firestore, 'Users'), sessionID);
-    await docRef.set({
-        Hints: app.firestore.FieldValue.arrayUnion(hint),
+    await setDoc(docRef, {
+        Hints: arrayUnion(hint),
     }, { merge: true });
 }
 
 export const pushProfits = async (sessionID, profit) => {
     const docRef = doc(collection(firestore, 'Users'), sessionID);
-    await docRef.set({
-        Profits: app.firestore.FieldValue.arrayUnion(profit),
+    await setDoc(docRef, {
+        Profits: arrayUnion(profit),
     }, { merge: true });
 }
 
