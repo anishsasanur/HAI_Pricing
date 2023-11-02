@@ -17,7 +17,7 @@ function handleSetPrice() {
   //pushProfits(sessionID, p2Demand, p2Demand)
 }
 
-function ChartComponent({ pricesData, profitData}) {
+function ChartComponent({ pricesData, profitData, demandData, sessionID}) {
     
 
       const options = {
@@ -30,23 +30,6 @@ function ChartComponent({ pricesData, profitData}) {
       };
 
     
-    const demandData = {
-        labels: ['Y1 Q1', 'Y1 Q2', 'Y1 Q3', 'Y1 Q4', 'Y1 Q5', 'Y1 Q6', 'Y1 Q7'],
-        datasets: [
-            {
-                label: 'D1',
-                data: [1000, 1500, 2000, 2300, 2500, 2700, 3000],
-                borderColor: 'gray',
-                fill: false
-            },
-            {
-                label: 'D2',
-                data: [1100, 1600, 2050, 2350, 2550, 2750, 3100],
-                borderColor: 'lightblue',
-                fill: false
-            }
-        ]
-    };
   return (
     <div className="chartContainer">
         <div className="chartWrapper">
