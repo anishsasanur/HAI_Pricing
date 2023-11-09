@@ -20,6 +20,7 @@ const Login = (props) => {
       return;
     }
     props.setSessionID(sessionID)
+    
     props.onLogin(fullName, sessionID);
   };
 

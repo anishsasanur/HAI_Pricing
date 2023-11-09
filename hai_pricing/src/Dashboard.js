@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import  { ChartComponent, PriceControl, HintSection, SignalsSection } from './ChartComponents';
 import NavBar from './InterfaceComponents/navbar';
-import {pushPrices, pushDemands, pushProfits} from './firebaseDB.js'
+import {pushPrices, pushDemands, pushProfits, pushTimerForPrices, pushTimerForHints} from './firebaseDB.js'
 
 const Dashboard = ({sessionID}) => {
   const [p1Price, setP1Price] = useState(500); // assuming 500 is the default value for both sliders
@@ -116,9 +116,15 @@ const Dashboard = ({sessionID}) => {
         ]
     }));
     pushPrices(sessionID, newP1Price, newP2Price);
+    pushTimerForPrices(sessionID)
     //pushProfits(sessionID, newProfitData);
     pushDemands(sessionID, dummyDemandValueP2, dummyDemandValueP2)
 
+  }
+
+  function handleHint() {
+    pushTimerForHints(sessionID)
+    return
   }
 
 
@@ -146,7 +152,7 @@ const Dashboard = ({sessionID}) => {
              </div>
           
           <div className="hintsContainer">
-            <HintSection/>
+            <HintSection handleHint={handleHint}/>
           </div>
           
           <div className="signalsContainer">

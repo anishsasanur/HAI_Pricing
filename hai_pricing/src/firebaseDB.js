@@ -1,6 +1,7 @@
 
 import {app, firestore} from './firebaseConfig';
 import { collection, doc, setDoc, getDocs, addDoc, arrayUnion } from "firebase/firestore";
+import { currentTime } from './timeTracker';
 
 export const createUser = async (sessionID, fullName) => {
     const data = {
@@ -9,7 +10,8 @@ export const createUser = async (sessionID, fullName) => {
         p1prices: [],
         p2prices: [],
         p1signals: [],
-        p2signals: []
+        p2signals: [],
+        loginTime: currentTime
     };
     
     const userDocRef = doc(collection(firestore, 'Users'), sessionID);
@@ -57,6 +59,20 @@ export const pushProfits = async (sessionID, profit) => {
     const docRef = doc(collection(firestore, 'Users'), sessionID);
     await setDoc(docRef, {
         Profits: arrayUnion(profit),
+    }, { merge: true });
+}
+
+export const pushTimerForPrices = async (sessionID) => {
+    const docRef = doc(collection(firestore, 'Users'), sessionID);
+    await setDoc(docRef, {
+        priceSetTimes: arrayUnion(currentTime),
+    }, { merge: true });
+}
+
+export const pushTimerForHints = async (sessionID) => {
+    const docRef = doc(collection(firestore, 'Users'), sessionID);
+    await setDoc(docRef, {
+        hintAccessTimes: arrayUnion(currentTime),
     }, { merge: true });
 }
 
