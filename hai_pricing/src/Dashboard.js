@@ -79,11 +79,10 @@ const Dashboard = ({sessionID}) => {
       ]
       
     }));
-    const newProfitData = profitData.datasets[0].data.slice(0, -1);  // remove the last profit value
-
+    const newProfitData = [...profitData.datasets[0].data];  // create a copy of the existing profit data
     const dummyProfitValue = (p1Price + p2Price) * 1000;  // Dummy equation using the set prices
     newProfitData.unshift(dummyProfitValue);  // add the new profit to the front
-  
+      
     setProfitData(prevState => ({
       ...prevState,
       datasets: [{

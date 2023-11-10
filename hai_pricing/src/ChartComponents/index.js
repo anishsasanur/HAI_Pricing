@@ -55,7 +55,7 @@ function PriceControl({ handleSetPrice }) {
     return (
     <div className="price-control">
       <Typography variant="h6" component="h2" className="price-display">
-        2 Price: $100
+        Product 1
       </Typography>
         <Slider
     value={sliderValueP1}
@@ -66,6 +66,9 @@ function PriceControl({ handleSetPrice }) {
     min={0}
     max={1000}
   />
+      <Typography variant="h6" component="h2" className="price-display">
+        Product 2
+      </Typography>
 
   <Slider
     value={sliderValueP2}
