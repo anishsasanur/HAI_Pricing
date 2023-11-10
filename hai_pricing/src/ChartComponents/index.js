@@ -50,7 +50,7 @@ function PriceControl({ handleSetPrice }) {
   
   function updatePrices() {
     handleSetPrice(sliderValueP1, sliderValueP2);
-}
+  }
 
     return (
     <div className="price-control">
@@ -83,13 +83,13 @@ function PriceControl({ handleSetPrice }) {
     </div>
   );
 }
-function HintSection() {
+function HintSection({handleHint}) {
   return (
     <div className="hint-section">
       <Typography variant="subtitle1" component="h2">
         You have the option to click on Hint for AI generated advice
       </Typography>
-      <Button variant="contained">Hint</Button>
+      <Button variant="contained" onClick={handleHint}>Hint</Button>
     </div>
   );
 }
