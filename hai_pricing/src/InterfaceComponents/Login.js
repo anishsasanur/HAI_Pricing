@@ -27,7 +27,7 @@ const Login = (props) => {
   return (
     <div style={{ marginTop: '200px' }}>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <img src="./logo.png" alt="Sample" width="300" height="300"/>
+        <img src="logo.png" alt="Sample" width="300" height="300"/>
       </div>
       <Typography variant="h3" align="center" mb={8}>HAI Dynamic Pricing Game</Typography>
       <Box

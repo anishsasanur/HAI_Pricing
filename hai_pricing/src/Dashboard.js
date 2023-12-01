@@ -152,13 +152,11 @@ const Dashboard = ({sessionID}) => {
           }
         ]
       }));
-
       setPeriodNumber(periodNumber + 1)
-      if (periodNumber == 11) {
+      if (periodNumber >= 10) {
         setRoundNumber(roundNumber + 1)
         setPeriodNumber(1)
       }
-  
       return newCounter; // Return the new counter value
     });
   
