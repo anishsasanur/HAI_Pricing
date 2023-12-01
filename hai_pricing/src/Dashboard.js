@@ -8,6 +8,9 @@ const Dashboard = ({sessionID}) => {
   const [p1Price, setP1Price] = useState(500); // assuming 500 is the default value for both sliders
   const [p2Price, setP2Price] = useState(500);
   const [updateCounter, setUpdateCounter] = useState(0);
+  const [roundNumber, setRoundNumber] = useState(1);
+  const [periodNumber, setPeriodNumber] = useState(1);
+
   const [profitData, setProfitData] = useState({
     labels: ['Y1 Q1', 'Y1 Q2', 'Y1 Q3', 'Y1 Q4', 'Y1 Q5', 'Y1 Q6', 'Y1 Q7'],
     datasets: [{
@@ -149,6 +152,12 @@ const Dashboard = ({sessionID}) => {
           }
         ]
       }));
+
+      setPeriodNumber(periodNumber + 1)
+      if (periodNumber == 11) {
+        setRoundNumber(roundNumber + 1)
+        setPeriodNumber(1)
+      }
   
       return newCounter; // Return the new counter value
     });
@@ -169,7 +178,7 @@ const Dashboard = ({sessionID}) => {
 
   return (
     <div className="Dashboard">
-      <NavBar round={1} period={1} sessionId={sessionID}/>
+      <NavBar round={roundNumber} period={periodNumber} sessionId={sessionID}/>
       <div className="chartContainer">
         <ChartComponent         
         pricesData={pricesData}
