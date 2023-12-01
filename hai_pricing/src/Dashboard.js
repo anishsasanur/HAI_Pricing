@@ -60,7 +60,7 @@ const Dashboard = ({sessionID}) => {
     return quarters.map(quarter => `Y${currentYear} ${quarter}`);
   }
   useEffect(() => {
-    if (updateCounter % 9 === 0 && updateCounter !== 0) {
+    if (updateCounter % 10 === 0 && updateCounter !== 0) {
       // Generate new labels based on the current value of updateCounter
       const newLabels = generateLabels(updateCounter);
   
