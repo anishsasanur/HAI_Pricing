@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/HAI_Pricing/static/css/main.22e0ad1a.css",
+    "main.js": "/HAI_Pricing/static/js/main.3163e827.js",
+    "index.html": "/HAI_Pricing/index.html",
+    "main.22e0ad1a.css.map": "/HAI_Pricing/static/css/main.22e0ad1a.css.map",
+    "main.3163e827.js.map": "/HAI_Pricing/static/js/main.3163e827.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.22e0ad1a.css",
+    "static/js/main.3163e827.js"
+  ]
+}
