@@ -4,6 +4,7 @@ import  { ChartComponent, PriceControl, HintSection, SignalsSection } from './Ch
 import NavBar from './InterfaceComponents/navbar';
 import {pushPrices, pushDemands, pushProfits, pushTimerForPrices, pushTimerForHints} from './firebaseDB.js'
 
+
 const Dashboard = ({sessionID}) => {
   const [p1Price, setP1Price] = useState(500); // assuming 500 is the default value for both sliders
   const [p2Price, setP2Price] = useState(500);

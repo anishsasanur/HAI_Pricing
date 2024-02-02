@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, TextField, Typography, Box } from '@mui/material';
+import logo from './logo.png';
 
 const Login = (props) => {
   const [fullName, setFullName] = useState('');
@@ -27,7 +28,7 @@ const Login = (props) => {
   return (
     <div style={{ marginTop: '200px' }}>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <img src="logo.png" alt="Sample" width="300" height="300"/>
+        <img src={logo} alt="Sample" width="200" height="200"/>
       </div>
       <Typography variant="h3" align="center" mb={8}>HAI Dynamic Pricing Game</Typography>
       <Box
