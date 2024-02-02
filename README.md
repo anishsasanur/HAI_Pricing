@@ -4,11 +4,13 @@ The frontend is a React App connected to a Firebase database for storing user en
 
 At the moment, the game currently takes inputs such as alphas, betas, signals, tips, and gammas through CSV files that can be uploaded to the code base.
 
-Input sepereate CSV files for each value neede3d specifiying for the round and period number, and the corresponding values. After uploading the CSV files update the file paths in the code to represent the chagnes.
+Input sepereate CSV files for each value needed specifiying for the round and period number, and the corresponding values. After uploading the CSV files update the file paths in the code to represent the changes. Data should be uploaded to the data folder withing the src folder. Data should be in CSV format.
 
 The program will automatically parse the CS's and use the data for running the simulation.
 
 The user is provided with a unique session ID which they will input into the game, and they will be assigned different "types" based ont the session ID. Their gameplay will be different, and they will encounter different values depending on which type they are placed into.
+
+
 
 To Play the Game:
 
