@@ -3,6 +3,8 @@ import './App.css';
 import  { ChartComponent, PriceControl, HintSection, SignalsSection } from './ChartComponents';
 import NavBar from './InterfaceComponents/navbar';
 import {pushPrices, pushDemands, pushProfits, pushTimerForPrices, pushTimerForHints} from './firebaseDB.js'
+import {s1, s2, s1g, s2g, q1, q2, revenue, probabilityA} from './Formulas/formulas.js'
+import {parseCSV, fetchCSV} from './handleCSVs/handleCSVs.js'
 
 
 const Dashboard = ({sessionID}) => {
@@ -11,6 +13,25 @@ const Dashboard = ({sessionID}) => {
   const [updateCounter, setUpdateCounter] = useState(0);
   const [roundNumber, setRoundNumber] = useState(1);
   const [periodNumber, setPeriodNumber] = useState(1);
+
+  fetchCSV("/HAI_Pricing/Data/alphas.csv").then(parsedData => {
+    let alphas = parsedData
+  });
+  fetchCSV("/HAI_Pricing/Data/betas.csv").then(parsedData => {
+    let betas = parsedData
+  });
+  fetchCSV("/HAI_Pricing/Data/signals.csv").then(parsedData => {
+    let signals = parsedData
+  });
+  fetchCSV("/HAI_Pricing/Data/tips.csv").then(parsedData => {
+    let tips = parsedData
+  });
+  fetchCSV("/HAI_Pricing/Data/a_gammas.csv").then(parsedData => {
+    let a_gammas = parsedData
+  });
+  fetchCSV("/HAI_Pricing/Data/b_gammas.csv").then(parsedData => {
+    let b_gammas = parsedData
+  });
 
   const [profitData, setProfitData] = useState({
     labels: ['Y1 Q1', 'Y1 Q2', 'Y1 Q3', 'Y1 Q4', 'Y1 Q5', 'Y1 Q6', 'Y1 Q7'],
