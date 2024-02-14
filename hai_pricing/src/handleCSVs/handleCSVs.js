@@ -5,7 +5,7 @@ function fetchCSV(url) {
         .catch(error => console.error('Error fetching CSV:', error));
 }
 
-function parseCSV(csvString) {
+async function parseCSV(csvString) {
     const rows = csvString.split('\n');
     const headers = rows.shift().split(',');
 
@@ -17,9 +17,10 @@ function parseCSV(csvString) {
         });
         return obj;
     });
-
+    //console.log(data)
     return data;
 }
+
 
 
 export {parseCSV, fetchCSV};

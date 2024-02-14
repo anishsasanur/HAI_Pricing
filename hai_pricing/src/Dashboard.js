@@ -5,6 +5,7 @@ import NavBar from './InterfaceComponents/navbar';
 import {pushPrices, pushDemands, pushProfits, pushTimerForPrices, pushTimerForHints} from './firebaseDB.js'
 import {s1, s2, s1g, s2g, q1, q2, revenue, probabilityA} from './Formulas/formulas.js'
 import {parseCSV, fetchCSV} from './handleCSVs/handleCSVs.js'
+import {alphas, betas, signals, tips, a_gammas, b_gammas} from './App.js'
 
 
 const Dashboard = ({sessionID}) => {
@@ -14,29 +15,15 @@ const Dashboard = ({sessionID}) => {
   const [roundNumber, setRoundNumber] = useState(1);
   const [periodNumber, setPeriodNumber] = useState(1);
 
-  fetchCSV("/HAI_Pricing/Data/alphas.csv").then(parsedData => {
-    let alphas = parsedData
-  });
-  fetchCSV("/HAI_Pricing/Data/betas.csv").then(parsedData => {
-    let betas = parsedData
-  });
-  fetchCSV("/HAI_Pricing/Data/signals.csv").then(parsedData => {
-    let signals = parsedData
-  });
-  fetchCSV("/HAI_Pricing/Data/tips.csv").then(parsedData => {
-    let tips = parsedData
-  });
-  fetchCSV("/HAI_Pricing/Data/a_gammas.csv").then(parsedData => {
-    let a_gammas = parsedData
-  });
-  fetchCSV("/HAI_Pricing/Data/b_gammas.csv").then(parsedData => {
-    let b_gammas = parsedData
-  });
+  let M = 1000
+  let seed = Math.floor(Math.random() * 1961);
+
+  //console.log(alphas[10*((roundNumber)-1) + ((periodNumber)-1)])
 
   const [profitData, setProfitData] = useState({
     labels: ['Y1 Q1', 'Y1 Q2', 'Y1 Q3', 'Y1 Q4', 'Y1 Q5', 'Y1 Q6', 'Y1 Q7'],
     datasets: [{
-      label: 'Profit',
+      label: 'Revenue',
       data: [], // initial profit data
       borderColor: 'teal',
       fill: false
@@ -120,9 +107,22 @@ const Dashboard = ({sessionID}) => {
     // Update P1 and P2 prices
     setP1Price(newP1Price);
     setP2Price(newP2Price);
-    const dummyProfitValue = (newP1Price + newP2Price) * 1000;  // Dummy calculation for profit
-    const dummyDemandValueP1 = Math.max(3000 - newP1Price, 1000); // Dummy demand equation for product 1
-    const dummyDemandValueP2 = Math.max(3000 - newP2Price, 1000); // Dummy demand equation for product 2
+    let g;
+    if (sessionID%2 === 0 ) {
+      g = a_gammas[seed + 10*((roundNumber)-1) + ((periodNumber)-1)]['"x"']
+      console.log(1, g)
+    }
+    else {
+      g = b_gammas[seed + 10*((roundNumber)-1) + ((periodNumber)-1)]['"x"']
+      console.log(2, g)
+    }
+    let demandValueP1 = s1g(newP1Price, newP2Price, g)
+    let demandValueP2 = s2g(newP1Price, newP2Price, g)
+    let quantity_1 = q1(newP1Price, newP2Price, g)
+    let quantity_2 = q2(newP1Price, newP2Price, g)
+    let rev = revenue(newP1Price, newP2Price, g)
+
+    console.log(newP1Price, newP2Price, quantity_1, quantity_2, demandValueP1, demandValueP2, rev, g)
 
   
     // Increment the update counter and update the datasets
@@ -154,7 +154,7 @@ const Dashboard = ({sessionID}) => {
         labels: newLabels,
         datasets: [{
           ...prevProfitData.datasets[0],
-          data: [...prevProfitData.datasets[0].data, dummyProfitValue].slice(-10)
+          data: [...prevProfitData.datasets[0].data, rev].slice(-10)
         }]
       }));
   
@@ -166,11 +166,11 @@ const Dashboard = ({sessionID}) => {
         datasets: [
           {
             ...prevDemandData.datasets[0],
-            data: [...prevDemandData.datasets[0].data, dummyDemandValueP1].slice(-10)
+            data: [...prevDemandData.datasets[0].data, demandValueP1].slice(-10)
           },
           {
             ...prevDemandData.datasets[1],
-            data: [...prevDemandData.datasets[1].data, dummyDemandValueP2].slice(-10)
+            data: [...prevDemandData.datasets[1].data, demandValueP2].slice(-10)
           }
         ]
       }));
@@ -186,8 +186,8 @@ const Dashboard = ({sessionID}) => {
     pushPrices(sessionID, newP1Price, newP2Price);
     pushTimerForPrices(sessionID);
     // Uncomment if you need to push the new profit and demand data to Firebase
-    pushProfits(sessionID, dummyProfitValue);
-    pushDemands(sessionID, dummyDemandValueP1, dummyDemandValueP2);
+    pushProfits(sessionID, rev);
+    pushDemands(sessionID, demandValueP1, demandValueP2);
   }
   
   function handleHint() {

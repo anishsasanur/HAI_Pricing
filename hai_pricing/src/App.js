@@ -10,8 +10,29 @@ import {createUser} from './firebaseDB';
 //   Redirect,
 // } from 'react-router-dom';
 import React from 'react';
+import {s1, s2, s1g, s2g, q1, q2, revenue, probabilityA} from './Formulas/formulas.js'
+import {parseCSV, fetchCSV} from './handleCSVs/handleCSVs.js'
 
+let alphas, betas, signals, tips, a_gammas, b_gammas;
 
+await fetchCSV("/HAI_Pricing/Data/alphas.csv").then(parsedData => {
+  alphas = parsedData
+});
+await fetchCSV("/HAI_Pricing/Data/betas.csv").then(parsedData => {
+  betas = parsedData
+});
+await fetchCSV("/HAI_Pricing/Data/signals.csv").then(parsedData => {
+  signals = parsedData
+});
+await fetchCSV("/HAI_Pricing/Data/tips.csv").then(parsedData => {
+  tips = parsedData
+});
+await fetchCSV("/HAI_Pricing/Data/a_gammas.csv").then(parsedData => {
+  a_gammas = parsedData
+});
+await fetchCSV("/HAI_Pricing/Data/b_gammas.csv").then(parsedData => {
+ b_gammas = parsedData
+});
 
 function App() {
   let [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,3 +56,4 @@ function App() {
 }
 
 export default App;
+export {alphas, betas, signals, tips, a_gammas, b_gammas}
