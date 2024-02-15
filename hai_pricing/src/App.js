@@ -13,7 +13,7 @@ import React from 'react';
 import {s1, s2, s1g, s2g, q1, q2, revenue, probabilityA} from './Formulas/formulas.js'
 import {parseCSV, fetchCSV} from './handleCSVs/handleCSVs.js'
 
-let alphas, betas, signals, tips, a_gammas, b_gammas;
+let alphas, betas, signals, tips, a_gammas, b_gammas, hints;
 
 await fetchCSV("/HAI_Pricing/Data/alphas.csv").then(parsedData => {
   alphas = parsedData
@@ -33,6 +33,12 @@ await fetchCSV("/HAI_Pricing/Data/a_gammas.csv").then(parsedData => {
 await fetchCSV("/HAI_Pricing/Data/b_gammas.csv").then(parsedData => {
  b_gammas = parsedData
 });
+await fetchCSV("/HAI_Pricing/Data/tips.csv").then(parsedData => {
+  hints = parsedData
+ });
+
+
+ 
 
 function App() {
   let [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -56,4 +62,4 @@ function App() {
 }
 
 export default App;
-export {alphas, betas, signals, tips, a_gammas, b_gammas}
+export {alphas, betas, signals, tips, a_gammas, b_gammas, hints}

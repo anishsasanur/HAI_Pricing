@@ -83,16 +83,20 @@ function PriceControl({ handleSetPrice }) {
     </div>
   );
 }
-function HintSection({handleHint}) {
+function HintSection({ handleHint, currentHint, showHint }) {
   return (
     <div className="hint-section">
-      <Typography variant="subtitle1" component="h2">
-        You have the option to click on Hint for AI generated advice
-      </Typography>
+      {showHint 
+        ? <div className="hintDisplay">Your new hint is: {currentHint}</div>
+        : <Typography variant="subtitle1" component="h2">
+            You have the option to click on Hint for AI generated advice
+          </Typography>
+      }
       <Button variant="contained" onClick={handleHint}>Hint</Button>
     </div>
   );
 }
+
 function SignalsSection() {
   return (
     <div className="signals-section">

@@ -5,7 +5,7 @@ import NavBar from './InterfaceComponents/navbar';
 import {pushPrices, pushDemands, pushProfits, pushTimerForPrices, pushTimerForHints} from './firebaseDB.js'
 import {s1, s2, s1g, s2g, q1, q2, revenue, probabilityA} from './Formulas/formulas.js'
 import {parseCSV, fetchCSV} from './handleCSVs/handleCSVs.js'
-import {alphas, betas, signals, tips, a_gammas, b_gammas} from './App.js'
+import {alphas, betas, signals, tips, a_gammas, b_gammas, hints} from './App.js'
 
 
 const Dashboard = ({sessionID}) => {
@@ -14,6 +14,9 @@ const Dashboard = ({sessionID}) => {
   const [updateCounter, setUpdateCounter] = useState(0);
   const [roundNumber, setRoundNumber] = useState(1);
   const [periodNumber, setPeriodNumber] = useState(1);
+  const [currentHint, setCurrentHint] = useState(''); // Store the current hint to display
+  const [showHint, setShowHint] = useState(false); // Control the visibility of the hint
+
 
   let M = 1000
   let seed = Math.floor(Math.random() * 1961);
@@ -190,10 +193,34 @@ const Dashboard = ({sessionID}) => {
     pushDemands(sessionID, demandValueP1, demandValueP2);
   }
   
+  
+  const [hintTimeoutId, setHintTimeoutId] = useState(null);
+
   function handleHint() {
-    pushTimerForHints(sessionID)
-    return
+    if (hintTimeoutId) {
+      clearTimeout(hintTimeoutId); // Clear any existing timeout
+    }
+  
+    // Pick a random hint from the imported hints array
+    const randomIndex = Math.floor(Math.random() * hints.length);
+    const randomHintObject = hints[randomIndex];
+  
+    // Assuming you want to display the 'tip_HiGen' property as the hint
+    const randomHint = randomHintObject.tip_HiGen;
+  
+    setCurrentHint(randomHint);
+    setShowHint(true);
+  
+    // Set a timeout to hide the hint after 30 seconds and save the timeout id
+    const newTimeoutId = setTimeout(() => {
+      setShowHint(false);
+      setCurrentHint(''); // Clear the current hint
+    }, 30000);
+  
+    setHintTimeoutId(newTimeoutId);
   }
+  
+  
 
 
   return (
@@ -219,9 +246,11 @@ const Dashboard = ({sessionID}) => {
             />         
              </div>
           
-          <div className="hintsContainer">
-            <HintSection handleHint={handleHint}/>
-          </div>
+             <div className="hintsContainer">
+    <HintSection handleHint={handleHint} currentHint={currentHint} showHint={showHint} />
+  </div>
+
+
           
           <div className="signalsContainer">
             <SignalsSection/>

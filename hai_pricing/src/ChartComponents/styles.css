@@ -53,3 +53,7 @@ body, html {
   font-size: 2rem;
   margin-right: 10px;
 }
+.hintDisplay {
+  /* Add your styles here */
+  display: block; /* or however you want to display it */
+}
