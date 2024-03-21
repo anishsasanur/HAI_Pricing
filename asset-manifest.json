@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/HAI_Pricing/static/css/main.dbf98f18.css",
-    "main.js": "/HAI_Pricing/static/js/main.4e4e7b8e.js",
+    "main.js": "/HAI_Pricing/static/js/main.a7e0a1c2.js",
     "static/media/logo.png": "/HAI_Pricing/static/media/logo.189b66ba97d77d63d569.png",
     "index.html": "/HAI_Pricing/index.html",
     "main.dbf98f18.css.map": "/HAI_Pricing/static/css/main.dbf98f18.css.map",
-    "main.4e4e7b8e.js.map": "/HAI_Pricing/static/js/main.4e4e7b8e.js.map"
+    "main.a7e0a1c2.js.map": "/HAI_Pricing/static/js/main.a7e0a1c2.js.map"
   },
   "entrypoints": [
     "static/css/main.dbf98f18.css",
-    "static/js/main.4e4e7b8e.js"
+    "static/js/main.a7e0a1c2.js"
   ]
 }
