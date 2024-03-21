@@ -9,8 +9,8 @@ import {alphas, betas, signals, tips, a_gammas, b_gammas, hints} from './App.js'
 
 
 const Dashboard = ({sessionID}) => {
-  const [p1Price, setP1Price] = useState(500); // assuming 500 is the default value for both sliders
-  const [p2Price, setP2Price] = useState(500);
+  const [p1Price, setP1Price] = useState(25); // assuming 500 is the default value for both sliders
+  const [p2Price, setP2Price] = useState(25);
   const [updateCounter, setUpdateCounter] = useState(0);
   const [roundNumber, setRoundNumber] = useState(1);
   const [periodNumber, setPeriodNumber] = useState(1);
@@ -113,11 +113,9 @@ const Dashboard = ({sessionID}) => {
     let g;
     if (sessionID%2 === 0 ) {
       g = a_gammas[seed + 10*((roundNumber)-1) + ((periodNumber)-1)]['"x"']
-      console.log(1, g)
     }
     else {
       g = b_gammas[seed + 10*((roundNumber)-1) + ((periodNumber)-1)]['"x"']
-      console.log(2, g)
     }
     let demandValueP1 = s1g(newP1Price, newP2Price, g)
     let demandValueP2 = s2g(newP1Price, newP2Price, g)
@@ -125,7 +123,7 @@ const Dashboard = ({sessionID}) => {
     let quantity_2 = q2(newP1Price, newP2Price, g)
     let rev = revenue(newP1Price, newP2Price, g)
 
-    console.log(newP1Price, newP2Price, quantity_1, quantity_2, demandValueP1, demandValueP2, rev, g)
+    //console.log(newP1Price, newP2Price, quantity_1, quantity_2, demandValueP1, demandValueP2, rev, g)
 
   
     // Increment the update counter and update the datasets
@@ -232,7 +230,7 @@ const Dashboard = ({sessionID}) => {
         profitData={profitData}
         sessionID= {sessionID}
         demandData={demandData} 
-/>
+      />
       </div>
       
       <div className="controlsContainer">
@@ -244,16 +242,13 @@ const Dashboard = ({sessionID}) => {
               p2Price={p2Price} 
               setP2Price={setP2Price} 
             />         
-             </div>
+          </div>
           
-             <div className="hintsContainer">
+          <div className="hintsContainer">
     <HintSection handleHint={handleHint} currentHint={currentHint} showHint={showHint} />
-  </div>
-
-
-          
+      </div>
           <div className="signalsContainer">
-            <SignalsSection/>
+            <SignalsSection period={periodNumber} round={roundNumber}/>
           </div>
       </div>
     </div>

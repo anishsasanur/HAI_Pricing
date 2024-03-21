@@ -4,6 +4,7 @@ import './styles.css';
 import Chart from 'chart.js/auto';
 import {Button, Slider, Typography} from '@mui/material';
 import {pushPrices, pushDemands, pushProfits} from '../firebaseDB.js'
+import {signals} from '../App'
 
 
 // 5 State Variables
@@ -45,8 +46,8 @@ function ChartComponent({ pricesData, profitData, demandData, sessionID}) {
   );
 }
 function PriceControl({ handleSetPrice }) {
-  const [sliderValueP1, setSliderValueP1] = useState(500);
-  const [sliderValueP2, setSliderValueP2] = useState(500);
+  const [sliderValueP1, setSliderValueP1] = useState(25);
+  const [sliderValueP2, setSliderValueP2] = useState(25);
   
   function updatePrices() {
     handleSetPrice(sliderValueP1, sliderValueP2);
@@ -62,9 +63,9 @@ function PriceControl({ handleSetPrice }) {
     onChange={(event, newValue) => setSliderValueP1(newValue)}
     aria-label="P1 Price"
     valueLabelDisplay="auto"
-    step={10}
+    step={1}
     min={0}
-    max={1000}
+    max={50}
   />
       <Typography variant="h6" component="h2" className="price-display">
         Product 2
@@ -75,9 +76,9 @@ function PriceControl({ handleSetPrice }) {
     onChange={(event, newValue) => setSliderValueP2(newValue)}
     aria-label="P2 Price"
     valueLabelDisplay="auto"
-    step={10}
+    step={1}
     min={0}
-    max={1000}
+    max={50}
   />
     <Button variant="contained" onClick={updatePrices}>Set Prices</Button>
     </div>
@@ -97,20 +98,45 @@ function HintSection({ handleHint, currentHint, showHint }) {
   );
 }
 
-function SignalsSection() {
+function SignalsSection({round, period}) {
+  let signalP1 = signals[10*((round)-1) + ((period)-1)]['Signals_P1']
+  let signalP2 = signals[10*((round)-1) + ((period)-1)]['Signals_P2']
+  //console.log(signalP1, signalP2)
   return (
     <div className="signals-section">
       <div>
-        <span className="down-arrow">⬇️</span>
-        <Typography variant="subtitle1" component="h2">
-          The demand for Product 1 will be lower.
-        </Typography>
+        {signalP1 == 1 ? (
+          <>
+            <span className="up-arrow">⬆️</span>
+            <Typography variant="subtitle1" component="h2">
+              The demand for Product 1 will be higher.
+            </Typography>
+          </>
+        ) : (
+          <>
+            <span className="down-arrow">⬇️</span>
+            <Typography variant="subtitle1" component="h2">
+              The demand for Product 1 will be lower.
+            </Typography>
+          </>
+        )}
       </div>
       <div>
-        <span className="up-arrow">⬆️</span>
-        <Typography variant="subtitle1" component="h2">
-          The demand for Product 2 will be higher.
-        </Typography>
+        {signalP2 == 1 ? (
+          <>
+            <span className="up-arrow">⬆️</span>
+            <Typography variant="subtitle1" component="h2">
+              The demand for Product 2 will be higher.
+            </Typography>
+          </>
+        ) : (
+          <>
+            <span className="down-arrow">⬇️</span>
+            <Typography variant="subtitle1" component="h2">
+              The demand for Product 2 will be lower.
+            </Typography>
+          </>
+        )}
       </div>
     </div>
   );

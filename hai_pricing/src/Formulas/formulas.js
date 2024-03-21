@@ -1,3 +1,7 @@
+import { scales } from "chart.js";
+
+let scale_factor = 25
+
 function s1(p1, p2, a1a, a2a, b1a, b2a) {
     return Math.exp(a1a + b1a * p1) / (1 + Math.exp(a1a + b1a * p1) + Math.exp(a2a + b2a * p2));
 }
@@ -8,6 +12,8 @@ function s2(p1, p2, a1a, a2a, b1a, b2a) {
 
 
 function s1g(p1, p2, g) {
+    p1 = p1/scale_factor
+    p2 = p2/scale_factor
     const exp1A = Math.exp(1 - 0.35 * p1);
     const exp2A = Math.exp(-1 - 0.35 * p2);
     const exp1B = Math.exp(-0.5 - 0.2 * p1);
@@ -16,6 +22,8 @@ function s1g(p1, p2, g) {
 }
 
 function s2g(p1, p2, g) {
+    p1 = p1/scale_factor
+    p2 = p2/scale_factor
     const exp1A = Math.exp(1 - 0.35 * p1);
     const exp2A = Math.exp(-1 - 0.35 * p2);
     const exp1B = Math.exp(-0.5 - 0.2 * p1);
